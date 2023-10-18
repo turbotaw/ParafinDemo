@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ThankYouPage from './ThankYouPage';
-import FormPage from './FormPage';
-import MerchantHomePage from './MerchantHomePage';
+import ThankYouPage from './app/webpages/ThankYouPage';
+import FormPage from './app/webpages/FormPage';
+import MerchantHomePage from './app/webpages/MerchantHomePage';
 
 
 function App() {
