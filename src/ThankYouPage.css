@@ -1,37 +1,38 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f9f9f9;
-    color: #333;
-    font-family: Arial, sans-serif;
-  }
-  
-  .heading {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .message {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  .button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    background-color: #008CBA;  /* Change to your preferred color */
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-  
-  .button:hover {
-    background-color: #005f5f;
-  }
+.box {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 300px; /* or whatever width you want */
+  text-align: center;
+}
+
+.heading,
+.message,
+.button {
+  margin-bottom: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #008CBA;
+  color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #005f5f;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+}

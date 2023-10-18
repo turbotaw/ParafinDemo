@@ -81,7 +81,7 @@ const FormPage: React.FC = () => {
 
   return (
     <div className="container">
-       <NavBar />  {/* Navbar component included here */}
+       <NavBar />
       <form onSubmit={handleSubmit}>
         <h1>Add New Customer Information</h1>
         <input
