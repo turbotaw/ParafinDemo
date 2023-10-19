@@ -15,9 +15,10 @@ const Navbar = () => {
       <ul className="navbar-nav">
         <li className="nav-item">
           <div className="nav-link admin-link" onClick={toggleDropdown}>
-            ⚙ Admin
+            ⚙ My Account
             {dropdownOpen && (
               <div className="dropdown-menu">
+                <Link to="/OfferPage" className="dropdown-item">See my offers</Link>
                 <Link to="/BusinessSubmission" className="dropdown-item">Add a new business</Link>
                 <Link to="/PersonalInfoSubmission" className="dropdown-item">Add a new business owner</Link>
                 <Link to="/BankInfo" className="dropdown-item">Add new bank information</Link>

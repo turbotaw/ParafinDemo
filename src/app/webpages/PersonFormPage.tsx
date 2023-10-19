@@ -81,7 +81,7 @@ const PersonFormPage: React.FC = () => {
     <div className="container">
        <NavBar />
       <form onSubmit={handleSubmit}>
-        <h1>Step 2: Input Personal Information</h1>
+        <h1>Step 2: Business Owner Information</h1>
         <input
           type="text"
           name="first_name"

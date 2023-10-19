@@ -2,6 +2,7 @@ import { ParafinElements } from "@parafin/react-parafin-elements";
 import { redeemAuthToken } from '../api/tokenManager';
 import React, { useState, useEffect } from "react";
 import { createOffer } from '../api/parafinCreateOffer';
+import {fundProject} from '../api/parafinFundProject';
 import NavBar from './NavBar';
 import './OfferPage.css';
 
@@ -23,12 +24,22 @@ function OfferPage() {
 
         async function offerCreate() {
             try {
-                const result = await createOffer("business_39419781-cfdd-48fc-a1b1-57c93651835c", "flex_loan");
+                const result = await createOffer("business_f2d607d5-bc1b-4e18-9289-34c9fb5d896f", "flex_loan");
             } catch (error) {
                 console.error('Error fetching token: ', error);
             }
         }
-        offerCreate();
+        //offerCreate();
+        
+
+        async function sendFunds() {
+            try {
+                const result = await fundProject("business_f2d607d5-bc1b-4e18-9289-34c9fb5d896f");
+            } catch (error) {
+                console.error('Error fetching token: ', error);
+            }
+        }
+        sendFunds();
         fetchToken();
        
     }, []);
@@ -36,9 +47,8 @@ function OfferPage() {
     return (
         <div className="parafin-container">
              <NavBar />
-            <h1>Parafin Elements Quickstart</h1>
             {token ? (
-                <div className="parafin-elements-wrapper">
+                <div className="parafin-element">
                     <ParafinElements
                         product="capital"
                         environment="production"

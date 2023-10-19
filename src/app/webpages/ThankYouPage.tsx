@@ -6,11 +6,11 @@ import './ThankYouPage.css';
 const ThankYouPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleGoBack = () => {
-    navigate('/PersonalInfoSubmission');
+  const handleSeeOffers = () => {
+    navigate('/OfferPage');
   };
-  const handleSubmitCustomer = () => {
-    navigate('/FormPage');
+  const handleGoHome = () => {
+    navigate('/');
   }
 
   return (
@@ -19,10 +19,10 @@ const ThankYouPage: React.FC = () => {
       <div className="box">
         <h1 className="heading">Thank You!</h1>
         <p className="message">
-          Your form has been submitted successfully.
+          You're one step closer to getting the financing your business needs to continue growing! See your offers now, by clicking below.
         </p>
-        <button onClick={handleGoBack} className="button">Enter Personal Information</button>
-        <button onClick={handleSubmitCustomer} className="button">Submit Another Business</button>
+        <button onClick={handleSeeOffers} className="button">What options are available?</button>
+        <button onClick={handleGoHome} className="button">Take me home</button>
       </div>
     </div>
   );
