@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { US_STATES } from '../constants/StateOptions';
 import INCORPORATION_TYPE_OPTIONS from '../constants/IncorporationTypeOptions';
 import NavBar from './NavBar';
+import {createBusiness} from '../api/parafinCreateBusiness';
 import '../../App.css';
 
 
@@ -53,29 +54,9 @@ const FormPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const client_id = process.env.REACT_APP_MY_CLIENT_ID;
-    const secret = process.env.REACT_APP_MY_API_KEY;
-    const credentials = btoa(client_id + ':' + secret);
-
-    try {
-      const response = await fetch('https://api.parafin.com/v1/businesses', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Basic ' + credentials,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      if (response.ok) {
-        navigate('/thank-you');
-      }
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+    const result = await createBusiness(formData);
+    if (result.success) {
+      navigate('/thank-you');
     }
   };
 

@@ -8,15 +8,19 @@ const ThankYouPage: React.FC = () => {
   const handleGoBack = () => {
     navigate('/');
   };
+  const handleSubmitCustomer = () => {
+    navigate('/FormPage');
+  }
 
   return (
     <div className="container">
-      <div className="box">  {/* Wrap the message and button in a new div with class "box" */}
+      <div className="box">
         <h1 className="heading">Thank You!</h1>
         <p className="message">
           Your form has been submitted successfully.
         </p>
-        <button onClick={handleGoBack} className="button">Go Back</button>
+        <button onClick={handleGoBack} className="button">Go To Merchant Account</button>
+        <button onClick={handleSubmitCustomer} className="button">Submit Another Customer</button>
       </div>
     </div>
   );
