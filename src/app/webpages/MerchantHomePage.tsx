@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import { fetchSalesData, fetchCreditOffer } from "../api/businessData";
 import './MerchantHomePage.css';
 import { useNavigate } from 'react-router-dom';
+import FinancingSection from './components/FinancingSection';
+import dashboardImage from '../img/dashboard.png';
 
 interface SalesDataType {
     totalSales: number;
@@ -17,6 +19,7 @@ interface CreditOfferType {
 function MerchantHomePage() {
     const [salesData, setSalesData] = useState<SalesDataType | null>(null);
     const [creditOffer, setCreditOffer] = useState<CreditOfferType | null>(null);
+
     const navigate = useNavigate();
     const handleOnClick = () => {
         navigate('/BusinessSubmission');
@@ -36,23 +39,19 @@ function MerchantHomePage() {
                 {salesData ? (
                     <div className="sales-summary">
                         <h2>Monthly Sales</h2>
-                        <p>Total Sales: ${salesData.totalSales.toLocaleString()}</p>
-                        <p>Number of Transactions: {salesData.transactions.toLocaleString()}</p>
+                        <p>Total Sales: ${salesData.totalSales.toLocaleString()} | Transactions: {salesData.transactions.toLocaleString()}</p>
+                        <p></p>
                     </div>
                 ) : (
                     <p>Loading sales data...</p>
                 )}
 
-                {creditOffer ? (
-                    <div className="credit-offer">
-                        <h2>Potential Credit Line Offer</h2>
-                        <p>Offer Amount: ${creditOffer.amount.toLocaleString()}</p>
-                        <p>Interest Rate: {creditOffer.interestRate}%</p>
-                        <button onClick={handleOnClick} className="button">Click Here to get a Quote</button>
-                    </div>
-                ) : (
-                    <p>Loading credit offer...</p>
-                )}
+                <div className="dashboard">
+                    <img src={dashboardImage} alt="Dashboard" />
+                </div>
+
+            </div><div>
+                <FinancingSection />
             </div></>
     );
 }

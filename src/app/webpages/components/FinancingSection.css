@@ -1,0 +1,54 @@
+.financing-container {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    background-color: #ffffff;
+    max-width: 1200px;  
+    width: 50%;  
+    margin: auto;
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: nowrap;  
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4a64b4;
+    color: white;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.button:hover {
+    background-color: #284bb2;
+}
+
+.text-section {
+    flex: 1;
+    padding-right: 20px;
+    max-width: 50%;  
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.financing-image {
+    flex: 1;
+    max-width: 50%;  
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .financing-container {
+        flex-direction: column;
+    }
+    .text-section, .financing-image {
+        max-width: 100%;
+        margin: 0;
+    }
+}

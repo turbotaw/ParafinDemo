@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import {createBank} from '../api/parafinCreateBank';
 import '../main/App.css';
 

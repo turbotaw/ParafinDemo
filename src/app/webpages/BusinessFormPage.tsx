@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { US_STATES } from '../constants/StateOptions';
 import INCORPORATION_TYPE_OPTIONS from '../constants/IncorporationTypeOptions';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import {createBusiness} from '../api/parafinCreateBusiness';
 import '../main/App.css';
 

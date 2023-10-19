@@ -50,10 +50,9 @@ input, select {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  width: 100%; /* Ensure both input and select take up 100% width of their container */
-  box-sizing: border-box; /* Include padding and border within the specified width */
+  width: 100%;
+  box-sizing: border-box; 
 }
-
 
 button {
   padding: 10px 20px;
@@ -85,7 +84,6 @@ h1 {
 body {
   margin: 0;
   padding: 0;
-  background-image: url('../img/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

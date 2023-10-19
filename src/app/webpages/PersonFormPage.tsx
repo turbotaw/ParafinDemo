@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { US_STATES } from '../constants/StateOptions';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import {createPerson} from '../api/parafinCreatePerson';
 import '../main/App.css';
 

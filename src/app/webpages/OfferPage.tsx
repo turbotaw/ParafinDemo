@@ -3,7 +3,7 @@ import { redeemAuthToken } from '../api/tokenManager';
 import React, { useState, useEffect } from "react";
 import { createOffer } from '../api/parafinCreateOffer';
 import {fundProject} from '../api/parafinFundProject';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
 import './OfferPage.css';
 
 function OfferPage() {
