@@ -8,7 +8,7 @@ import '../../App.css';
 
 
 
-const FormPage: React.FC = () => {
+const BusinessFormPage: React.FC = () => {
   const [formData, setFormData] = React.useState({
     legal_name: '',
     dba_name: '',
@@ -56,7 +56,7 @@ const FormPage: React.FC = () => {
     e.preventDefault();
     const result = await createBusiness(formData);
     if (result.success) {
-      navigate('/thank-you');
+      navigate('/PersonalInfoSubmission');
     }
   };
 
@@ -64,7 +64,7 @@ const FormPage: React.FC = () => {
     <div className="container">
        <NavBar />
       <form onSubmit={handleSubmit}>
-        <h1>Add New Customer Information</h1>
+        <h1>Step 1: Input Business Information</h1>
         <input
           type="text"
           name="legal_name"
@@ -164,4 +164,4 @@ const FormPage: React.FC = () => {
   );
 };
 
-export default FormPage;
+export default BusinessFormPage;

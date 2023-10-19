@@ -18,7 +18,9 @@ const Navbar = () => {
             ⚙ Admin
             {dropdownOpen && (
               <div className="dropdown-menu">
-                <Link to="/FormPage" className="dropdown-item">Add a new Customer</Link>
+                <Link to="/BusinessSubmission" className="dropdown-item">Add a new business</Link>
+                <Link to="/PersonalInfoSubmission" className="dropdown-item">Add a new business owner</Link>
+                <Link to="/BankInfo" className="dropdown-item">Add new bank information</Link>
               </div>
             )}
           </div>
