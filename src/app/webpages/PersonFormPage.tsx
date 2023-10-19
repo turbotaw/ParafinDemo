@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { US_STATES } from '../constants/StateOptions';
 import NavBar from './NavBar';
 import {createPerson} from '../api/parafinCreatePerson';
-import '../../App.css';
+import '../main/App.css';
 
 
 

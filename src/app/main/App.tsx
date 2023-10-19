@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import UserContext from './app/UserContext';
-import ThankYouPage from './app/webpages/ThankYouPage';
-import BusinessFormPage from './app/webpages/BusinessFormPage';
-import MerchantHomePage from './app/webpages/MerchantHomePage';
-import PersonFormPage from './app/webpages/PersonFormPage';
-import OfferPage from './app/webpages/OfferPage';
-import BankInfoPage from './app/webpages/BankInfoPage';
+import UserContext from './UserContext';
+import ThankYouPage from '../webpages/ThankYouPage';
+import BusinessFormPage from '../webpages/BusinessFormPage';
+import MerchantHomePage from '../webpages/MerchantHomePage';
+import PersonFormPage from '../webpages/PersonFormPage';
+import OfferPage from '../webpages/OfferPage';
+import BankInfoPage from '../webpages/BankInfoPage';
 
 
 function App() {

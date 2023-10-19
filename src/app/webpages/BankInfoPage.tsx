@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import {createBank} from '../api/parafinCreateBank';
-import '../../App.css';
+import '../main/App.css';
 
 const BankInfoPage: React.FC = () => {
 const [formData, setFormData] = React.useState({

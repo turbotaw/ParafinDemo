@@ -4,7 +4,7 @@ import { US_STATES } from '../constants/StateOptions';
 import INCORPORATION_TYPE_OPTIONS from '../constants/IncorporationTypeOptions';
 import NavBar from './NavBar';
 import {createBusiness} from '../api/parafinCreateBusiness';
-import '../../App.css';
+import '../main/App.css';
 
 
 
