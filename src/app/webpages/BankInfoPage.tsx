@@ -12,7 +12,6 @@ const [formData, setFormData] = React.useState({
     currency: '',
 });
 
-// Your handleChange function should also be updated to handle nested objects:
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (name === 'last4') {

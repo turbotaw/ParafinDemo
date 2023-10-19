@@ -1,10 +1,10 @@
 .parafin-container {
     display: flex;
-    flex-direction: column; /* Adjust the flex direction to column to allow width stretching */
+    flex-direction: column;
     align-items: center;
     height: auto;
     width: 100%;
-    padding-top: 75px; /* Added padding at the top */
+    padding-top: 75px;
 }
 
 .parafin-element {

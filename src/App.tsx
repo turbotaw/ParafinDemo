@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserContext from './app/UserContext';
 import ThankYouPage from './app/webpages/ThankYouPage';
 import BusinessFormPage from './app/webpages/BusinessFormPage';
 import MerchantHomePage from './app/webpages/MerchantHomePage';
@@ -10,7 +11,9 @@ import BankInfoPage from './app/webpages/BankInfoPage';
 
 
 function App() {
+  const [userId, setUserId] = useState<string | null>(null);
   return (
+    <UserContext.Provider value={{ userId, setUserId }}>
     <Router>
       <Routes>
        <Route path="/" element={<MerchantHomePage />} />
@@ -21,6 +24,7 @@ function App() {
         <Route path="/BankInfo" element={<BankInfoPage />}/>
       </Routes>
     </Router>
+    </UserContext.Provider>
   );
 }
 
