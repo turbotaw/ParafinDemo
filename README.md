@@ -1,6 +1,6 @@
 # Overview
 
-This project was built using React and PostgreSQL. It is an example of a fake company "GrubDash" and how they might use Parafin and their APIs to better serve their customers.
+This project was built using React and and the Parafin APIs. The purpose is to demonstrate a basic implementation of the Parafin Elements and APIs. There is also a new user onboarding form to demonstrate the differnt APIs and their usage. The src/app/api/useToken.ts file contains the function we use frequently to request a token from Parafin.
 
 ## Available Scripts
 

@@ -12,6 +12,8 @@ async function fetchSalesData(business_id: string): Promise<{ totalSales: number
 
 
 async function fetchCreditOffer(person_id: string) {
+
+    // you would replace this with a call to your database
     const value = offerMapping.get(person_id);
     if(value !== undefined){
         return Promise.resolve(value);

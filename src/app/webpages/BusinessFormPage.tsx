@@ -4,12 +4,12 @@ import { US_STATES } from '../constants/StateOptions';
 import INCORPORATION_TYPE_OPTIONS from '../constants/IncorporationTypeOptions';
 import NavBar from './components/NavBar';
 import {createBusiness} from '../api/parafinCreateBusiness';
-import { BusinessContext } from '../main/BusinessContext';  // Updated import statement
+import { BusinessContext } from '../main/BusinessContext'; 
 import { userToIdMapping } from '../constants/userMapping';
 
 
 const BusinessFormPage: FC = () => {
-  const businessContext = useContext(BusinessContext);  // Updated useContext statement
+  const businessContext = useContext(BusinessContext); 
   const [formData, setFormData] = useState({
     legal_name: '',
     dba_name: '',
@@ -61,7 +61,6 @@ const BusinessFormPage: FC = () => {
             console.log("businessId: " + businessId);
             console.log("Business created");
 
-            // Updated logic to set the businessId in the businessContext
             if (businessContext) {
               businessContext.setBusinessId(businessId);
             }
