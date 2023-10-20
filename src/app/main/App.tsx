@@ -8,6 +8,7 @@ import MerchantHomePage from '../webpages/MerchantHomePage';
 import PersonFormPage from '../webpages/PersonFormPage';
 import OfferPage from '../webpages/OfferPage';
 import BankInfoPage from '../webpages/BankInfoPage';
+import './button.css';
 
 
 function App() {

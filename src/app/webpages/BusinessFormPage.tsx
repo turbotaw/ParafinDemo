@@ -4,7 +4,7 @@ import { US_STATES } from '../constants/StateOptions';
 import INCORPORATION_TYPE_OPTIONS from '../constants/IncorporationTypeOptions';
 import NavBar from './components/NavBar';
 import {createBusiness} from '../api/parafinCreateBusiness';
-import '../main/App.css';
+
 
 
 
@@ -158,7 +158,7 @@ const BusinessFormPage: React.FC = () => {
           ))}
         </select>
        
-        <button type="submit">Submit</button>
+        <button className="button" type="submit">Submit</button>
       </form>
     </div>
   );

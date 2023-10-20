@@ -1,32 +1,19 @@
 .box {
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  padding: 40px;
+  margin-top:60px;
   border-radius: 8px;
-  padding: 20px;
-  margin: 20px auto;
-  margin-top: 60px;
-  width: 550px;
-  height: 200px;
-  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .heading,
 .message,
 .button {
-  margin-bottom: 20px;
-}
-
-.button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #008CBA;
-  color: white;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #005f5f;
+  margin-bottom: 10px;
 }
 
 body {

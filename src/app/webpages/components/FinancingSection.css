@@ -13,20 +13,6 @@
     flex-wrap: nowrap;  
 }
 
-.button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #4a64b4;
-    color: white;
-    cursor: pointer;
-    margin: 0 auto;
-}
-
-.button:hover {
-    background-color: #284bb2;
-}
-
 .text-section {
     flex: 1;
     padding-right: 20px;

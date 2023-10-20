@@ -9,9 +9,6 @@ const ThankYouPage: React.FC = () => {
   const handleSeeOffers = () => {
     navigate('/OfferPage');
   };
-  const handleGoHome = () => {
-    navigate('/');
-  }
 
   return (
     <div className="container">
@@ -22,7 +19,6 @@ const ThankYouPage: React.FC = () => {
           You're one step closer to getting the financing your business needs to continue growing! See your offers now, by clicking below.
         </p>
         <button onClick={handleSeeOffers} className="button">See offers now</button>
-        <button onClick={handleGoHome} className="button">Take me home</button>
       </div>
     </div>
   );

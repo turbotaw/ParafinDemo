@@ -73,7 +73,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
           placeholder="USD"
           required
         />
-        <button type="submit">Submit</button>
+        <button className="button" type="submit">Submit</button>
       </form>
     </div>
   );
