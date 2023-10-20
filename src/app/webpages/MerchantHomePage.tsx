@@ -5,7 +5,7 @@ import './MerchantHomePage.css';
 import { useNavigate } from 'react-router-dom';
 import FinancingSection from './components/FinancingSection';
 import dashboardImage from '../img/dashboard.png';
-import { useToken } from '../api/useToken';  // Adjust the path to match your file structure
+import { useToken } from '../api/useToken'; 
 import UserContext from '../main/UserContext';
 import { offerMapping } from '../constants/userMapping';
 
@@ -15,16 +15,26 @@ interface SalesDataType {
 }
 
 interface CreditOfferType {
-    amount: number;
-    interestRate: number;
+    offer: string;
 }
-
+function mapOfferStatus(offer: string | null): "no-offer" | "has-offer" | "offer-accepted" {
+    switch (offer) {
+        case "no-offer":
+            return "no-offer";
+        case "has-offer":
+            return "has-offer";
+        case "offer-accepted":
+            return "offer-accepted";
+        default:
+            return "no-offer"; 
+    }
+}
 const MerchantHomePage: React.FC = () => {
     const [salesData, setSalesData] = useState<SalesDataType | null>(null);
     const [creditOffer, setCreditOffer] = useState<CreditOfferType | null>(null);
     const token = useToken();
     const userContext = useContext(UserContext);
-    const navigate = useNavigate();  // Moved up
+    const navigate = useNavigate(); 
 
     let userId: string | null = null;
 
@@ -32,7 +42,6 @@ const MerchantHomePage: React.FC = () => {
         userId = userContext.userId;
     } else {
         console.error('UserContext is undefined');
-        // return null;  // Removed to avoid conditional hook usage
     }
 
     const handleOnClick = () => {
@@ -41,17 +50,25 @@ const MerchantHomePage: React.FC = () => {
 
     useEffect(() => {
         if (userId !== undefined && userId !== null) {
+            // Fetch sales data
             fetchSalesData(userId)
                 .then(data => {
                     setSalesData(data);
-                    return fetchCreditOffer(data);
+                    console.log('Fetched Sales Data:', data);
                 })
-                .then(offer => setCreditOffer(offer))
-                .catch(error => console.error('Error fetching data:', error));
+                .catch(error => console.error('Error fetching sales data:', error));
+            
+            // Fetch credit offer
+            fetchCreditOffer(userId)
+                .then(offer => {
+                    setCreditOffer(offer);
+                    console.log('Fetched Credit Offer:', offer);
+                })
+                .catch(error => console.error('Error fetching credit offer:', error));
         }
     }, [userId]);
 
-    if (!userContext) return null;  // Moved down
+    if (!userContext) return null; 
 
     return (
         <>
@@ -75,7 +92,7 @@ const MerchantHomePage: React.FC = () => {
 
             </div>
             <div>
-                <FinancingSection />
+                <FinancingSection userStatus={mapOfferStatus(creditOffer)} />
             </div>
         </>
     );

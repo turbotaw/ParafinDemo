@@ -6,8 +6,6 @@ import NavBar from './components/NavBar';
 import {createBusiness} from '../api/parafinCreateBusiness';
 
 
-
-
 const BusinessFormPage: React.FC = () => {
   const [formData, setFormData] = React.useState({
     legal_name: '',

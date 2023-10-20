@@ -13,20 +13,18 @@ function OfferPage() {
     const userContext = useContext(UserContext);
     
     useEffect(() => {
-        // Check if userContext is defined (it should be, if UserContext is provided higher up in the component tree)
         if (!userContext) {
             console.error('UserContext is undefined');
             return;
         }
         
-        // Destructure userId from userContext
         const { userId } = userContext;
         
         async function offerCreate() { 
-            let businessId;  // Declare businessId here
+            let businessId;  
             if (userId !== undefined && userId !== null) {
                 businessId = businessIdMapping.get(userId);
-                if (businessId !== undefined) {  // Check if businessId is defined
+                if (businessId !== undefined) { 
                     try {
                         const result = await createOffer(businessId, "flex_loan");
                     } catch (error) {
@@ -48,7 +46,7 @@ function OfferPage() {
         }
        // sendFunds();
        
-    }, [userContext]);  // Added userContext as a dependency
+    }, [userContext]);
 
     return (
         <div className="parafin-container">
