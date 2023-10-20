@@ -1,12 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import './ThankYouPage.css';
+import './css/ThankYouPage.css';
+import { BusinessContext } from '../main/BusinessContext'; 
+import { UserContext} from '../main/UserContext';
+import { createOffer } from '../api/parafinCreateOffer';  
 
 const ThankYouPage: React.FC = () => {
   const navigate = useNavigate();
+  const businessContext = useContext(BusinessContext);
+  const userContext =useContext(UserContext);
+
+  async function offerCreate() { 
+    const businessId = businessContext?.businessId;
+    const userId = userContext?.userId;
+    if(userId){
+      console.log("userId: ", userId);
+    } else {
+      console.log("No userId found");
+    }
+    if (businessId) {
+      console.log("businessId: " + businessId);
+      try {
+          const result = await createOffer(businessId, "flex_loan");
+          if (result) {
+              console.log('Offer created successfully:', result);
+          } else {
+              console.error('Failed to create offer:', !result);
+          }
+      } catch (error) {
+          console.error('Error creating offer: ', error);
+      }
+    } else {
+        console.error('businessId is undefined or null');
+    }
+  }
 
   const handleSeeOffers = () => {
+    offerCreate();
     navigate('/OfferPage');
   };
 

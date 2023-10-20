@@ -1,25 +1,26 @@
-import React, { useContext, useState }from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import UserContext from '../../main/UserContext';
+import { UserContext } from '../../main/UserContext';  
+import { BusinessContext } from '../../main/BusinessContext';  // Import BusinessContext
 import './Navbar.css';
-import { userToIdMapping } from '../../constants/userMapping';
+import { userToIdMapping, businessIdMapping } from '../../constants/userMapping';  // Adjusted import
 
 const Navbar = () => {
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
   const [usersDropdownOpen, setUsersDropdownOpen] = useState(false);
   const userContext = useContext(UserContext);
+  const businessContext = useContext(BusinessContext);  
 
   const toggleAccountDropdown = () => {
     setAccountDropdownOpen(!accountDropdownOpen);
-    if(usersDropdownOpen){
+    if (usersDropdownOpen) {
       setUsersDropdownOpen(!usersDropdownOpen);
     }
-    
   };
 
   const toggleUsersDropdown = () => {
     setUsersDropdownOpen(!usersDropdownOpen);
-    if(accountDropdownOpen){
+    if (accountDropdownOpen) {
       setAccountDropdownOpen(!accountDropdownOpen);
     }
   };
@@ -27,16 +28,31 @@ const Navbar = () => {
   const handleUserSelect = (userName: string) => () => {
     if (userContext) {
       const { setUserId } = userContext;
+      if(userName === 'Create new user'){
+        const tempUserId = '123';
+        userToIdMapping.set(tempUserId, userName);
+        setUserId(tempUserId);
+        console.log("tempUserId: " + tempUserId);
+      } else {
       const userId = userToIdMapping.get(userName);
       if (userId) {
         setUserId(userId);
         console.log("Set new userId to: " + userId);
+        if (userName !== 'Create new user') {
+          const businessId = businessIdMapping.get(userId);
+          if (businessId) {
+            businessContext?.setBusinessId(businessId); 
+            console.log("Set new businessId to: " + businessId);
+          } else {
+            console.error(`Unknown business for user: ${userName}`);
+          }
       } else {
         console.error(`Unknown user: ${userName}`);
       }
     }
+    }
   };
-
+  }
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-brand">GrubDash</Link>
@@ -59,7 +75,7 @@ const Navbar = () => {
             Users
             {usersDropdownOpen && (
               <div className="dropdown-menu">
-                {['Todd (capital on the way)', 'Roxanne (has offer)', 'Dave (capital on way)', 'Allison (offer accepted)'].map((user, index) => (
+                {['Todd (funded)', 'Roxanne (has offer)', 'James (funding on the way', 'Jane (no offer)', 'Create new user'].map((user, index) => (
                   <div key={index} className="dropdown-item" onClick={handleUserSelect(user)}>
                     {user}
                   </div>

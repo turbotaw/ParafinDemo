@@ -1,14 +1,40 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { US_STATES } from '../constants/StateOptions';
 import NavBar from './components/NavBar';
-import {createPerson} from '../api/parafinCreatePerson';
+import { createPerson } from '../api/parafinCreatePerson';
 import '../main/App.css';
+import {UserContext} from '../main/UserContext';
+import { BusinessContext } from '../main/BusinessContext'; 
+import { businessIdMapping, userToIdMapping} from '../constants/userMapping';
 
 
+interface FormData {
+  first_name: string;
+  last_name: string;
+  contact_email: string;
+  contact_phone: string;
+  address: {
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country: string;
+  };
+  linked_businesses: Array<{
+    id: string;
+    relationship: {
+      is_beneficial_owner: boolean;
+      is_representative: boolean;
+    };
+  }>;
+}
 
-const PersonFormPage: React.FC = () => {
-  const [formData, setFormData] = React.useState({
+const PersonFormPage: FC = () => {
+  const userContext = useContext(UserContext);
+  const businessContext = useContext(BusinessContext);
+  const [formData, setFormData] = useState<FormData>({
     first_name: '',
     last_name: '',
     contact_email: '',
@@ -22,14 +48,31 @@ const PersonFormPage: React.FC = () => {
       country: ''
     },
     linked_businesses: [
-    {   id: '',
+      {
+        id: '',
         relationship: {
-            is_beneficial_owner: true,
-            is_representative: true
+          is_beneficial_owner: true,
+          is_representative: true
         }
-    }
+      }
     ]
   });
+
+  useEffect(() => {
+    const userId = userContext?.userId;
+    console.log("userId "+ userId);
+    const businessId = businessContext?.businessId; 
+    console.log("businessId "+ businessId);
+    if (businessId) {
+      setFormData(currentState => ({
+        ...currentState,
+        linked_businesses: [{
+          ...currentState.linked_businesses[0],
+          id: businessId,
+        }]
+      }));
+    }
+  }, [userContext]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -46,16 +89,6 @@ const PersonFormPage: React.FC = () => {
         ...formData,
         [name]: value
       });
-    } else if (name === 'business_id') {
-      setFormData(prevState => ({
-        ...prevState,
-        linked_businesses: [
-          {
-            ...prevState.linked_businesses[0],
-            id: value
-          }
-        ]
-      }));
     } else {
       setFormData(prevState => ({
         ...prevState,
@@ -71,12 +104,35 @@ const PersonFormPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await createPerson(formData);
-    if (result.success) {
-      navigate('/BankInfo');
+    try {
+      const result = await createPerson(formData);
+      if (result.success && result.data) {
+        const personId = result.data.id;
+        console.log("personId: " + personId);
+        
+        const userId = userContext?.userId;
+        const businessId = businessContext?.businessId;
+        
+    
+        if (businessId) { 
+            console.log("businessId: " + businessId);
+            businessIdMapping.set(personId, businessId);
+            console.log('Mapped userId to businessId:', personId, businessId);
+            userContext?.setUserId(personId);
+            console.log("userId updated to: ", personId);
+
+            
+        } else {
+            console.error('businessId is undefined or null');
+        }
+        navigate('/BankInfo');
+      } else {
+        console.error('Person creation failed or person_id not found in response');
+      }
+    } catch (error) {
+      console.error('Error creating person:', error);
     }
   };
-
   return (
     <div className="container">
        <NavBar />
@@ -164,14 +220,6 @@ const PersonFormPage: React.FC = () => {
           value={formData.address.country}
           onChange={handleChange}
           placeholder="Country"
-          required
-        />
-        <input
-          type="text"
-          name="business_id"
-          value={formData.linked_businesses[0].id}
-          onChange={handleChange}
-          placeholder="Business ID"
           required
         />
         <button className="button" type="submit">Submit</button>

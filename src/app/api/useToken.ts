@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { redeemAuthToken } from './tokenManager';
-import UserContext from '../main/UserContext';
+import {UserContext} from '../main/UserContext';
 
 export function useToken() {
   const [token, setToken] = useState(null);

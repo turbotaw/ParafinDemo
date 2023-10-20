@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import NavBar from './components/NavBar';
 import { fetchSalesData, fetchCreditOffer } from "../api/businessData";
-import './MerchantHomePage.css';
+import './css/MerchantHomePage.css';
 import { useNavigate } from 'react-router-dom';
 import FinancingSection from './components/FinancingSection';
 import dashboardImage from '../img/dashboard.png';
 import { useToken } from '../api/useToken'; 
-import UserContext from '../main/UserContext';
+import { UserContext } from '../main/UserContext';  // Updated import statement
 import { offerMapping } from '../constants/userMapping';
+import {useCreditOffer} from '../api/useCreditOffer';
 
 interface SalesDataType {
     totalSales: number;
@@ -17,7 +18,8 @@ interface SalesDataType {
 interface CreditOfferType {
     offer: string;
 }
-function mapOfferStatus(offer: string | null): "no-offer" | "has-offer" | "offer-accepted" {
+
+function mapOfferStatus(offer: string | null | undefined): "no-offer" | "has-offer" | "offer-accepted" | "funded" {
     switch (offer) {
         case "no-offer":
             return "no-offer";
@@ -25,24 +27,21 @@ function mapOfferStatus(offer: string | null): "no-offer" | "has-offer" | "offer
             return "has-offer";
         case "offer-accepted":
             return "offer-accepted";
+        case "funded":
+            return "funded";
         default:
             return "no-offer"; 
     }
 }
+
 const MerchantHomePage: React.FC = () => {
-    const [salesData, setSalesData] = useState<SalesDataType | null>(null);
-    const [creditOffer, setCreditOffer] = useState<CreditOfferType | null>(null);
-    const token = useToken();
     const userContext = useContext(UserContext);
+    const userId = userContext?.userId;
+    const [creditOffer, setCreditOffer] = useState<CreditOfferType | null>(null);
+    const [salesData, setSalesData] = useState<SalesDataType | null>(null);
+    const token = useToken();
+  
     const navigate = useNavigate(); 
-
-    let userId: string | null = null;
-
-    if (userContext) {
-        userId = userContext.userId;
-    } else {
-        console.error('UserContext is undefined');
-    }
 
     const handleOnClick = () => {
         navigate('/BusinessSubmission');
@@ -50,7 +49,7 @@ const MerchantHomePage: React.FC = () => {
 
     useEffect(() => {
         if (userId !== undefined && userId !== null) {
-            // Fetch sales data
+           
             fetchSalesData(userId)
                 .then(data => {
                     setSalesData(data);
@@ -58,16 +57,18 @@ const MerchantHomePage: React.FC = () => {
                 })
                 .catch(error => console.error('Error fetching sales data:', error));
             
-            // Fetch credit offer
+           
             fetchCreditOffer(userId)
-                .then(offer => {
-                    setCreditOffer(offer);
-                    console.log('Fetched Credit Offer:', offer);
-                })
-                .catch(error => console.error('Error fetching credit offer:', error));
-        }
-    }, [userId]);
-
+    .then(offer => {
+        console.log(offer); 
+        console.log(mapOfferStatus(offer));
+        setCreditOffer({ offer: offer }); 
+        console.log('Fetched Credit Offer:', offer);
+    })
+    .catch(error => console.error('Error fetching credit offer:', error));
+    }
+}, [userId]);
+    console.log('creditOffer?.offer:', creditOffer?.offer);
     if (!userContext) return null; 
 
     return (
@@ -92,7 +93,7 @@ const MerchantHomePage: React.FC = () => {
 
             </div>
             <div>
-                <FinancingSection userStatus={mapOfferStatus(creditOffer)} />
+            <FinancingSection userStatus={mapOfferStatus(creditOffer?.offer || null)} /> 
             </div>
         </>
     );

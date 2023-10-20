@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { US_STATES } from '../constants/StateOptions';
 import INCORPORATION_TYPE_OPTIONS from '../constants/IncorporationTypeOptions';
 import NavBar from './components/NavBar';
 import {createBusiness} from '../api/parafinCreateBusiness';
+import { BusinessContext } from '../main/BusinessContext';  // Updated import statement
+import { userToIdMapping } from '../constants/userMapping';
 
 
-const BusinessFormPage: React.FC = () => {
-  const [formData, setFormData] = React.useState({
+const BusinessFormPage: FC = () => {
+  const businessContext = useContext(BusinessContext);  // Updated useContext statement
+  const [formData, setFormData] = useState({
     legal_name: '',
     dba_name: '',
     address: {
@@ -21,7 +24,6 @@ const BusinessFormPage: React.FC = () => {
     incorporation_state: '',
     incorporation_type: ''
   });
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (name === 'state') {
@@ -52,11 +54,27 @@ const BusinessFormPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await createBusiness(formData);
-    if (result.success) {
-      navigate('/PersonalInfoSubmission');
+    try {
+        const result = await createBusiness(formData);
+        if (result.success && result.data) {
+            const businessId = result.data.id;
+            console.log("businessId: " + businessId);
+            console.log("Business created");
+
+            // Updated logic to set the businessId in the businessContext
+            if (businessContext) {
+              businessContext.setBusinessId(businessId);
+            }
+
+            navigate('/PersonalInfoSubmission')
+        } else {
+            console.error('Business creation failed or business_id not found in response');
+        }
+    } catch (error) {
+        console.error('Error creating business:', error);
     }
   };
+
 
   return (
     <div className="container">
