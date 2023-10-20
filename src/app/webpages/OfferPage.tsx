@@ -1,37 +1,44 @@
+import { useToken } from '../api/useToken';  // Adjust the path to match your file structure
 import { ParafinElements } from "@parafin/react-parafin-elements";
-import { redeemAuthToken } from '../api/tokenManager';
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { createOffer } from '../api/parafinCreateOffer';
 import {fundProject} from '../api/parafinFundProject';
 import NavBar from './components/NavBar';
+import UserContext from '../main/UserContext';
+import {businessIdMapping} from '../constants/userMapping';
 import './OfferPage.css';
 
 function OfferPage() {
-    const [token, setToken] = useState(null)
-    const [state, setState] = useState(null)
-
+    const token = useToken();  // Get the token using the useToken hook
+    const userContext = useContext(UserContext);
+    
     useEffect(() => {
-        async function fetchToken() {
-            try {
-                const result = await redeemAuthToken("person_ef089a78-a4db-4e43-b644-ed8434f6092b");
-                if(result !== undefined){
-                    setToken(result.bearer_token);
-                }
-            } catch (error) {
-                console.error('Error fetching token: ', error);
-            }
+        // Check if userContext is defined (it should be, if UserContext is provided higher up in the component tree)
+        if (!userContext) {
+            console.error('UserContext is undefined');
+            return;
         }
-
-        async function offerCreate() {
-            try {
-                const result = await createOffer("business_f2d607d5-bc1b-4e18-9289-34c9fb5d896f", "flex_loan");
-            } catch (error) {
-                console.error('Error fetching token: ', error);
+        
+        // Destructure userId from userContext
+        const { userId } = userContext;
+        
+        async function offerCreate() { 
+            let businessId;  // Declare businessId here
+            if (userId !== undefined && userId !== null) {
+                businessId = businessIdMapping.get(userId);
+                if (businessId !== undefined) {  // Check if businessId is defined
+                    try {
+                        const result = await createOffer(businessId, "flex_loan");
+                    } catch (error) {
+                        console.error('Error creating offer: ', error);
+                    }
+                } else {
+                    console.error('businessId is undefined for userId: ', userId);
+                }
             }
         }
         //offerCreate();
         
-
         async function sendFunds() {
             try {
                 const result = await fundProject("business_f2d607d5-bc1b-4e18-9289-34c9fb5d896f");
@@ -39,17 +46,17 @@ function OfferPage() {
                 console.error('Error fetching token: ', error);
             }
         }
-        sendFunds();
-        fetchToken();
+       // sendFunds();
        
-    }, []);
+    }, [userContext]);  // Added userContext as a dependency
 
     return (
         <div className="parafin-container">
-             <NavBar />
+            <NavBar />
             {token ? (
                 <div className="parafin-element">
                     <ParafinElements
+                        key={token}
                         product="capital"
                         environment="production"
                         token={token}

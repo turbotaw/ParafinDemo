@@ -2,6 +2,7 @@ import React, { useContext, useState }from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../main/UserContext';
 import './Navbar.css';
+import { userToIdMapping } from '../../constants/userMapping';
 
 const Navbar = () => {
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
@@ -23,10 +24,16 @@ const Navbar = () => {
     }
   };
 
-  const handleUserSelect = (userId: string) => () => {
+  const handleUserSelect = (userName: string) => () => {
     if (userContext) {
       const { setUserId } = userContext;
-      setUserId(userId);
+      const userId = userToIdMapping.get(userName);
+      if (userId) {
+        setUserId(userId);
+        console.log("Set new userId to: " + userId);
+      } else {
+        console.error(`Unknown user: ${userName}`);
+      }
     }
   };
 
@@ -52,7 +59,7 @@ const Navbar = () => {
             Users
             {usersDropdownOpen && (
               <div className="dropdown-menu">
-                {['Alice', 'Bob', 'Charlie', 'Dave'].map((user, index) => (
+                {['Todd (capital on the way)', 'Roxanne (has offer)', 'Dave (capital on way)', 'Allison (offer accepted)'].map((user, index) => (
                   <div key={index} className="dropdown-item" onClick={handleUserSelect(user)}>
                     {user}
                   </div>
