@@ -2,6 +2,10 @@
 
 This project was built using React and and the Parafin APIs. The purpose is to demonstrate a basic implementation of the Parafin Elements and APIs. There is also a new user onboarding form to demonstrate the differnt APIs and their usage. The src/app/api/useToken.ts file contains the function we use frequently to request a token from Parafin.
 
+Here is a quick preview of what the app looks like:
+
+![alt text](url(/ParafinDemo/ParafinDemo/src/app/img/demo.gif))
+
 ## Available Scripts
 
 In the project directory, you can run:
