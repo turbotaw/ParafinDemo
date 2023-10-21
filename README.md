@@ -4,7 +4,7 @@ This project was built using React and and the Parafin APIs. The purpose is to d
 
 Here is a quick preview of what the app looks like:
 
-![alt text](/ParafinDemo/src/app/img/demo.gif)
+![alt text](url(src/app/img/demo.gif))
 
 ## Available Scripts
 
